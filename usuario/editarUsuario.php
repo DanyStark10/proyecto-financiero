@@ -1,12 +1,12 @@
-<?php include 'template/header.php' ?>
+<?php include '../template/header.php' ?>
 
 <?php
     if(!isset($_GET['id'])){
-        header('Location: index.php?mensaje=error');
+        header('Location: editarUsuario.php?mensaje=error');
         exit();
     }
 
-    include_once 'model/db.php';
+    include_once '../model/db.php';
     $codigo = $_GET['id'];
 
     $sentencia = $bd->prepare("select * from usuario where id_usuario = ?;");
@@ -38,6 +38,11 @@
                         <input type="text" class="form-control" name="txtTipo" autofocus required
                         value="<?php echo $usuario->tipo_usuario; ?>">
                     </div>
+                    <div class="mb-3">
+                        <label class="form-label">Contraseña: </label>
+                        <input type="text" class="form-control" name="txtPassword" autofocus required
+                        value="<?php echo $usuario->password; ?>">
+                    </div>
                     <div class="d-grid">
                         <input type="hidden" name="codigo" value="<?php echo $usuario->id_usuario; ?>">
                         <input type="submit" class="btn btn-primary" value="Editar">
@@ -48,4 +53,4 @@
     </div>
 </div>
 
-<?php include 'template/footer.php' ?>
+<?php include '../template/footer.php' ?>

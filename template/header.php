@@ -1,3 +1,9 @@
+<?php
+session_start();
+$usuario = $_SESSION['username'];
+
+?>
+
 <!doctype html>
 <html lang="es">
   <head>
@@ -14,20 +20,38 @@
       <div class="">
           <div class="">
               <div class="">
-                <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
                     <!-- Navbar content -->
-                    <div class="col-md text-center py-3">
-                        <ul class="list-inline">
-                            <li class="list-inline-item"><a class="btn btn-primary" href="#" role="button">Inicio</a></li>
-                            <li class="list-inline-item"><a class="btn btn-primary" href="#" role="button">Ingresos</a></li>
-                            <li class="list-inline-item"><a class="btn btn-primary" href="#" role="button">Egresos</a></li>
-                            <li class="list-inline-item"><a class="btn btn-primary" href="#" role="button">Usuario</a></li>
-                            <li class="list-inline-item"><a class="btn btn-primary" href="#" role="button">Reporte</a></li>
-
-                        </ul>
-                    </div>
-
-                </nav>
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <div class="container-fluid">
+                            <a class="navbar-brand" href="#">IS - 301</a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarText">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="index.php">Inicio</a>
+                                </li>
+                                <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="usuario.php">Usuarios</a>
+                                </li>
+                                <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="ingresos.php">Ingresos</a>
+                                </li>
+                                <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="egresos.php">Egresos</a>
+                                </li>
+                                <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Reporte</a>
+                                </li>
+                                
+                            </ul>
+                            <span class="navbar-text">
+                                <?php echo $usuario; ?> [<a href="login/salir.php">salir</a>]
+                            </span>
+                            </div>
+                        </div>
+                        </nav>
               </div>
           </div>
       </div>
