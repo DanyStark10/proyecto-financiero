@@ -42,7 +42,7 @@ $usuario = $_SESSION['username'];
                                 <a class="nav-link active" aria-current="page" href="egresos.php">Egresos</a>
                                 </li>
                                 <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Reporte</a>
+                                <a class="nav-link active" aria-current="page" href="reporte/reporte.php">Reporte</a>
                                 </li>
                                 
                             </ul>
