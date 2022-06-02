@@ -35,12 +35,37 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Tipo: </label>
-                        <input type="text" class="form-control" name="txtTipo" autofocus required
-                        value="<?php echo $usuario->tipo_usuario; ?>">
+                        <select name="txtTipo"  class="form-control">
+                        <?php
+                            include_once "model/db.php";
+                            $sentencia = $bd -> query("SELECT * FROM tipo_usuario;");
+                            $user = $sentencia->fetchAll(PDO::FETCH_OBJ);
+                            //print_r($usuario);
+                            foreach($user as $dato){;
+                                ?>
+                                    <option value="<?php echo $dato->id_tipo; ?>"><?php echo $dato->nombre ?></option>
+                                <?php
+                            }
+
+                        ?>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label  class="form-label">Escuela:</label>
-                        <input type="text" class="form-control" name="txtEscuela" autofocus require>
+                        <select name="txtEscuela"  class="form-control">
+                        <?php
+                            include_once "model/db.php";
+                            $sentencia = $bd -> query("SELECT * FROM escuela;");
+                            $user = $sentencia->fetchAll(PDO::FETCH_OBJ);
+                            //print_r($usuario);
+                            foreach($user as $dato){;
+                                ?>
+                                    <option value="<?php echo $dato->id_escuela; ?>"><?php echo $dato->nombre ?></option>
+                                <?php
+                            }
+
+                        ?>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Contraseña: </label>

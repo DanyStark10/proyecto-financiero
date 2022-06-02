@@ -25,8 +25,20 @@
                 <form class="p-4" method="POST" action="procesoEditar.php">
                     <div class="mb-3">
                         <label  class="form-label">Tipo:</label>
-                        <input type="text" class="form-control" name="txtTipo" autofocus require
-                        value="<?php echo $ingreso->id_tipo_ingreso; ?>">
+                        <select name="txtTipo"  class="form-control">
+                        <?php
+                            include_once "model/db.php";
+                            $sentencia = $bd -> query("SELECT * FROM tipo_ingresos;");
+                            $usuario = $sentencia->fetchAll(PDO::FETCH_OBJ);
+                            //print_r($usuario);
+                            foreach($usuario as $dato){;
+                                ?>
+                                    <option value="<?php echo $dato->id_tipo_ingreso; ?>"><?php echo $dato->descripcion ?></option>
+                                <?php
+                            }
+
+                        ?>
+                        </select> 
                     </div>
                     <div class="mb-3">
                         <label  class="form-label">Descripción:</label>
@@ -44,9 +56,21 @@
                         value="<?php echo $ingreso->monto; ?>">
                     </div>
                     <div class="mb-3">
-                        <label  class="form-label">ID Escuela:</label>
-                        <input type="text" class="form-control" name="txtMonto" autofocus require
-                        value="<?php echo $ingreso->id_escuela; ?>">
+                        <label  class="form-label">Escuela:</label>
+                        <select name="txtEscuela"  class="form-control">
+                        <?php
+                            include_once "model/db.php";
+                            $sentencia = $bd -> query("SELECT * FROM escuela;");
+                            $usuario = $sentencia->fetchAll(PDO::FETCH_OBJ);
+                            //print_r($usuario);
+                            foreach($usuario as $dato){;
+                                ?>
+                                    <option value="<?php echo $dato->id_escuela; ?>"><?php echo $dato->nombre ?></option>
+                                <?php
+                            }
+
+                        ?>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label  class="form-label">Fecha:</label>

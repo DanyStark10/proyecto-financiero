@@ -2,7 +2,7 @@
 session_start();
 $usuario = $_SESSION['username'];
 $rol = $_SESSION['rol'];
-
+$escuela = $_SESSION['escuela'];
 ?>
 
 <!doctype html>
@@ -97,10 +97,20 @@ $rol = $_SESSION['rol'];
 
                                 
                                 <?php
-                                    if($rol == '1' || $rol == '2' || $rol == '3'){
+                                    if($rol == '1' ){
                                 ?>
                                 <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="reporte.php">Reporte</a>
+                                </li>
+                                <?php
+                                    }
+                                ?>
+
+                                <?php
+                                    if( $rol == '2' || $rol == '3'){
+                                ?>
+                                <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="reporte/MostarReporte.php?escuela=<?php echo $escuela ?>">Reporte</a>
                                 </li>
                                 <?php
                                     }

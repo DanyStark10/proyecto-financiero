@@ -175,7 +175,20 @@
                 <form action="ingresos/registrarIngreso.php" class="p-4" method="POST" >
                     <div class="mb-3">
                         <label  class="form-label">Tipo:</label>
-                        <input type="text" class="form-control" name="txtTipo" autofocus require>
+                        <select name="txtTipo"  class="form-control">
+                        <?php
+                            include_once "model/db.php";
+                            $sentencia = $bd -> query("SELECT * FROM tipo_ingresos;");
+                            $usuario = $sentencia->fetchAll(PDO::FETCH_OBJ);
+                            //print_r($usuario);
+                            foreach($usuario as $dato){;
+                                ?>
+                                    <option value="<?php echo $dato->id_tipo_ingreso; ?>"><?php echo $dato->descripcion ?></option>
+                                <?php
+                            }
+
+                        ?>
+                        </select>                    
                     </div>
                     <div class="mb-3">
                         <label  class="form-label">Descripción:</label>
@@ -191,7 +204,20 @@
                     </div>
                     <div class="mb-3">
                         <label  class="form-label">Escuela:</label>
-                        <input type="text" class="form-control" name="txtEscuela" autofocus require>
+                        <select name="txtEscuela"  class="form-control">
+                        <?php
+                            include_once "model/db.php";
+                            $sentencia = $bd -> query("SELECT * FROM escuela;");
+                            $usuario = $sentencia->fetchAll(PDO::FETCH_OBJ);
+                            //print_r($usuario);
+                            foreach($usuario as $dato){;
+                                ?>
+                                    <option value="<?php echo $dato->id_escuela; ?>"><?php echo $dato->nombre ?></option>
+                                <?php
+                            }
+
+                        ?>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label  class="form-label">Fecha:</label>

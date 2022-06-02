@@ -2,17 +2,21 @@
 require('../fpdf/fpdf.php');
 
 include_once "../model/db.php";
+session_start();
+$usuario = $_SESSION['username'];
+$rol = $_SESSION['rol'];
+$escuela = $_SESSION['escuela'];
 
-
-if(empty($_POST["txtID"]) ){
-        header('Location: reporte.php?mensaje=falta');
-        exit();
+if($rol == '1'){
+        if(empty($_POST["txtID"]) ){
+                header('Location: ../reporte.php?mensaje=falta');
+                exit();
+        }else{
+                $id = $_POST["txtID"];
+        }
+}else{
+        $id = $_GET['escuela'];
 }
-
-$id = $_POST["txtID"];
-
-
-
 
 //Datos de la escuela
 $sentencia = $bd -> query("select * from escuela where id_escuela = '$id'");
