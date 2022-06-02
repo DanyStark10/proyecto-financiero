@@ -2,14 +2,16 @@
 
 <?php
     include_once "model/db.php";
-    $sentencia = $bd -> query("select * from usuario");
+    $sentencia = $bd -> query("SELECT usuario.id_usuario, usuario.nombre, usuario.correo, tipo_usuario.nombre as tipo_usuario, escuela.nombre as id_escuela FROM usuario
+    INNER JOIN tipo_usuario ON usuario.tipo_usuario = tipo_usuario.id_tipo
+    INNER JOIN escuela ON usuario.id_escuela = escuela.id_escuela WHERE usuario.estado = '1';");
     $usuario = $sentencia->fetchAll(PDO::FETCH_OBJ);
     //print_r($usuario);
 ?>
 
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-7">
+        <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
                     Lista de Usuarios
@@ -22,7 +24,7 @@
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Correo</th>
                                 <th scope="col">Tipo</th>
-                                
+                                <th scope="col">Escuela</th>
                                 <th scope="col" colspan="2">Opciones</th>
                             </tr>
                         </thead>
@@ -37,8 +39,9 @@
                                 <td> <?php echo $dato->nombre; ?> </td>
                                 <td> <?php echo $dato->correo; ?> </td>
                                 <td> <?php echo $dato->tipo_usuario; ?> </td>
+                                <td> <?php echo $dato->id_escuela; ?> </td>
                                 <td class="text-success"><a href="usuario/editarUsuario.php?id=<?php echo $dato->id_usuario; ?>"><i class="bi bi-pencil-square"></i></a></td>
-                                <td class="text-success"><a href="usuario/editarUsuario.php?id=<?php echo $dato->id_usuario; ?>"><i class="bi bi-trash3"></i></a></td>
+                                <td class="text-success"><a href="usuario/bajaUsuario.php?id=<?php echo $dato->id_usuario; ?>"><i class="bi bi-trash3"></i></a></td>
 
 
                             </tr>
@@ -92,13 +95,23 @@
                 }
             ?>
             
-            
+            <?php
+                if(isset($_GET['mensaje']) and $_GET['mensaje'] == 'baja'){
+            ?>    
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Listo!</strong> Baja Correcta.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+            <?php
+                }
+            ?>
 
             <div class="card">
                 <div class="card-header">
                     Ingresar datos
                 </div>
-                <form action="registrarUsuario.php" class="p-4" method="POST" >
+                <form action="usuario/registrarUsuario.php" class="p-4" method="POST" >
                     <div class="mb-3">
                         <label  class="form-label">Nombre:</label>
                         <input type="text" class="form-control" name="txtNombre" autofocus require>
@@ -110,6 +123,10 @@
                     <div class="mb-3">
                         <label  class="form-label">Tipo Usuario:</label>
                         <input type="text" class="form-control" name="txtTipo" autofocus require>
+                    </div>
+                    <div class="mb-3">
+                        <label  class="form-label">Escuela:</label>
+                        <input type="text" class="form-control" name="txtEscuela" autofocus require>
                     </div>
                     <div class="mb-3">
                         <label  class="form-label">Contraseña:</label>

@@ -1,5 +1,5 @@
 <?php
-    print_r($_POST);
+    //print_r($_POST);
     if(!isset($_POST['codigo'])){
         header('Location: ../ingresos.php?mensaje=error');
     }
@@ -11,9 +11,10 @@
     $comentario = $_POST['txtComentario'];
     $monto = $_POST['txtMonto'];
     $fecha = $_POST['txtFecha'];
+    $escuela = $_POST['txtEscuela'];
 
-    $sentencia = $bd->prepare("UPDATE ingresos SET id_tipo_ingreso = ?, descripcion = ?, comentario = ?, monto = ?, fecha = ? where id_ingreso = ?;");
-    $resultado = $sentencia->execute([$tipo, $descripcion, $comentario, $monto, $fecha, $id]);
+    $sentencia = $bd->prepare("UPDATE ingresos SET id_tipo_ingreso = ?, descripcion = ?, comentario = ?, monto = ?, fecha = ?, id_escuela = ? where id_ingreso = ?;");
+    $resultado = $sentencia->execute([$tipo, $descripcion, $comentario, $monto, $fecha,$escuela, $id]);
 
     if ($resultado === TRUE) {
         header('Location: ../ingresos.php?mensaje=editado');

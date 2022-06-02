@@ -10,6 +10,77 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
+           <!-- <div class="card"> 
+                <div class="card-header">
+                    Filtrar por:
+                </div> -->
+               <!-- <form action="ingresos.php"> -->
+                    <!-- Filtro por dia 
+                    <div class="row g-3">
+                        <div class="col-auto">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">Dia: </label>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <input type="text"  name="txtDia" placeholder="yyyy-mm-dd">
+                        </div>
+                    </div>  -->
+
+                    <!-- Filtro por mes 
+                    <div class="row g-3">
+                        <div class="col-auto">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">Mes: </label>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <input type="text"  name="txtMes" placeholder="mm">
+                        </div>
+                        <div class="col-auto">
+                            <label class="form-check-label" for="flexRadioDefault1"> del Año  </label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="text"  name="txtMesYear" placeholder="yyyy">
+                        </div> 
+                    </div>  -->
+
+                    <!-- Filtro por rango de fechas
+                    <div class="row g-3">
+                        <div class="col-auto">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">Del dia : </label>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <input type="text"  name="txtInicio" placeholder="yyyy-mm-dd">
+                        </div>
+                        <div class="col-auto">
+                            <label class="form-check-label" for="flexRadioDefault1"> hasta  </label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="text"  name="txtFin" placeholder="yyyy-mm-dd">
+                        </div> 
+                    </div>
+                     -->
+                    <!-- Filtro por año 
+                    <div class="row g-3">
+                        <div class="col-auto">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">Año: </label>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <input type="text"  name="txtYear" placeholder="yyyy">
+                        </div>
+                    </div>
+                </form>
+                -->
+            <!--</div> --> 
             <div class="card">
                 <div class="card-header">
                     Lista de Ingresos registrados
@@ -117,6 +188,10 @@
                     <div class="mb-3">
                         <label  class="form-label">Monto:</label>
                         <input type="text" class="form-control" name="txtMonto" autofocus require>
+                    </div>
+                    <div class="mb-3">
+                        <label  class="form-label">Escuela:</label>
+                        <input type="text" class="form-control" name="txtEscuela" autofocus require>
                     </div>
                     <div class="mb-3">
                         <label  class="form-label">Fecha:</label>

@@ -39,6 +39,10 @@
                         value="<?php echo $usuario->tipo_usuario; ?>">
                     </div>
                     <div class="mb-3">
+                        <label  class="form-label">Escuela:</label>
+                        <input type="text" class="form-control" name="txtEscuela" autofocus require>
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label">Contraseña: </label>
                         <input type="text" class="form-control" name="txtPassword" autofocus required
                         value="<?php echo $usuario->password; ?>">

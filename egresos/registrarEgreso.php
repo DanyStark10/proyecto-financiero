@@ -11,9 +11,11 @@ print_r($_POST);
     $comentario = $_POST["txtComentario"];
     $monto = $_POST["txtMonto"];
     $fecha = $_POST["txtFecha"];
+    $escuela = $_POST["txtEscuela"];
+
     
-    $sentencia = $bd->prepare("INSERT INTO egresos(id_tipo_egreso,descripcion,comentario,monto,fecha) VALUES (?,?,?,?,?);");
-    $resultado = $sentencia->execute([$tipo,$descripcion,$comentario,$monto,$fecha]);
+    $sentencia = $bd->prepare("INSERT INTO egresos(id_tipo_egreso,descripcion,comentario,monto,fecha,id_escuela) VALUES (?,?,?,?,?,?);");
+    $resultado = $sentencia->execute([$tipo,$descripcion,$comentario,$monto,$fecha,$escuela]);
 
     if ($resultado === TRUE) {
         header('Location: ../egresos.php?mensaje=registrado');

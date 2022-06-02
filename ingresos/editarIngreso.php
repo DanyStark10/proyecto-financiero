@@ -44,6 +44,11 @@
                         value="<?php echo $ingreso->monto; ?>">
                     </div>
                     <div class="mb-3">
+                        <label  class="form-label">ID Escuela:</label>
+                        <input type="text" class="form-control" name="txtMonto" autofocus require
+                        value="<?php echo $ingreso->id_escuela; ?>">
+                    </div>
+                    <div class="mb-3">
                         <label  class="form-label">Fecha:</label>
                         <input type="text" class="form-control" name="txtFecha" autofocus require
                         value="<?php echo $ingreso->fecha; ?>">

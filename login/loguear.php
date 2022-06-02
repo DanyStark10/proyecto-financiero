@@ -6,7 +6,7 @@
     $password = $_POST['txtPassword'];
 
     
-    $resultado = $bd -> query("SELECT COUNT(*) as contar FROM usuario WHERE correo = '$correo' AND password = '$password'");
+    $resultado = $bd -> query("SELECT COUNT(*) as contar FROM usuario WHERE correo = '$correo' AND password = '$password' and estado = '1'");
     $count = $resultado->fetchColumn();
   
 

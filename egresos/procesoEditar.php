@@ -11,9 +11,10 @@
     $comentario = $_POST['txtComentario'];
     $monto = $_POST['txtMonto'];
     $fecha = $_POST['txtFecha'];
+    $escuela = $_POST['txtEscuela'];
 
-    $sentencia = $bd->prepare("UPDATE egresos SET id_tipo_egreso = ?, descripcion = ?, comentario = ?, monto = ?, fecha = ? where id_egreso = ?;");
-    $resultado = $sentencia->execute([$tipo, $descripcion, $comentario, $monto, $fecha, $id]);
+    $sentencia = $bd->prepare("UPDATE egresos SET id_tipo_egreso = ?, descripcion = ?, comentario = ?, monto = ?, fecha = ?, id_escuela = ? where id_egreso = ?;");
+    $resultado = $sentencia->execute([$tipo, $descripcion, $comentario, $monto, $fecha,$escuela, $id]);
 
     if ($resultado === TRUE) {
         header('Location: ../egresos.php?mensaje=editado');
