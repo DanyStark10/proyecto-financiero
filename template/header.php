@@ -1,6 +1,7 @@
 <?php
 session_start();
 $usuario = $_SESSION['username'];
+$rol = $_SESSION['rol'];
 
 ?>
 
@@ -22,7 +23,28 @@ $usuario = $_SESSION['username'];
               <div class="">
                     <!-- Navbar content -->
                     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <div class="container-fluid">
+
+                        <?php
+                            if($rol == '1' ){
+                        ?>
+                        <div class="container-fluid" style="background-color: #387C54 ;">
+                        <?php
+                            }
+                        ?>
+                        <?php
+                            if($rol == '2' ){
+                        ?>
+                        <div class="container-fluid" style="background-color: #0070B8 ;">
+                        <?php
+                            }
+                        ?>
+                        <?php
+                            if($rol == '3' ){
+                        ?>
+                        <div class="container-fluid" style="background-color: #878B93;">
+                        <?php
+                            }
+                        ?>
                             <a class="navbar-brand" href="#">IS - 301</a>
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
@@ -32,21 +54,57 @@ $usuario = $_SESSION['username'];
                                 <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="index.php">Inicio</a>
                                 </li>
-                                <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="usuario.php">Usuarios</a>
-                                </li>
+
+                                <?php
+                                    if($rol == '1' || $rol == '2'){
+                                ?>
+                                    <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="usuario.php">Usuarios</a>
+                                    </li>
+                                <?php
+                                    }
+                                ?>
+
+                                <?php
+                                    if($rol == '1' || $rol == '2' || $rol == '3'){
+                                ?>
                                 <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="ingresos.php">Ingresos</a>
                                 </li>
+                                <?php
+                                    }
+                                ?>
+
+                                <?php
+                                    if($rol == '1' || $rol == '2' || $rol == '3'){
+                                ?>
                                 <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="egresos.php">Egresos</a>
                                 </li>
+                                <?php
+                                    }
+                                ?>
+
+                                <?php
+                                    if($rol == '1' ){
+                                ?>
                                 <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="escuelas.php">Escuela</a>
                                 </li>
+                                <?php
+                                    }
+                                ?>
+
+                                
+                                <?php
+                                    if($rol == '1' || $rol == '2' || $rol == '3'){
+                                ?>
                                 <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="reporte.php">Reporte</a>
                                 </li>
+                                <?php
+                                    }
+                                ?>
                                 
                             </ul>
                             <span class="navbar-text">
