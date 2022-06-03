@@ -110,7 +110,7 @@ $escuela = $_SESSION['escuela'];
                                     if( $rol == '2' || $rol == '3'){
                                 ?>
                                 <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="reporte/MostarReporte.php?escuela=<?php echo $escuela ?>">Reporte</a>
+                                <a class="nav-link active" aria-current="page" href="reporte.php">Reporte</a>
                                 </li>
                                 <?php
                                     }

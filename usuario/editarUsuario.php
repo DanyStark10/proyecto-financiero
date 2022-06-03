@@ -43,7 +43,15 @@
                             //print_r($usuario);
                             foreach($user as $dato){;
                                 ?>
-                                    <option value="<?php echo $dato->id_tipo; ?>"><?php echo $dato->nombre ?></option>
+                                    <option value="<?php echo $dato->id_tipo; ?>"
+                                    <?php 
+                                            if($dato->id_tipo == $usuario->tipo_usuario){
+                                                ?>
+                                                    selected = "true"
+                                                <?php
+                                            }
+                                        ?>
+                                    ><?php echo $dato->nombre ?></option>
                                 <?php
                             }
 
@@ -52,7 +60,7 @@
                     </div>
                     <div class="mb-3">
                         <label  class="form-label">Escuela:</label>
-                        <select name="txtEscuela"  class="form-control">
+                        <select name="txtEscuela" class="form-control">
                         <?php
                             include_once "model/db.php";
                             $sentencia = $bd -> query("SELECT * FROM escuela;");
@@ -60,7 +68,15 @@
                             //print_r($usuario);
                             foreach($user as $dato){;
                                 ?>
-                                    <option value="<?php echo $dato->id_escuela; ?>"><?php echo $dato->nombre ?></option>
+                                    <option value="<?php echo $dato->id_escuela; ?>"
+                                        <?php 
+                                            if($dato->id_escuela == $usuario->id_escuela){
+                                                ?>
+                                                    selected = "true"
+                                                <?php
+                                            }
+                                        ?>
+                                    ><?php echo $dato->nombre ?></option>
                                 <?php
                             }
 

@@ -6,7 +6,7 @@ session_start();
 $usuario = $_SESSION['username'];
 $rol = $_SESSION['rol'];
 $escuela = $_SESSION['escuela'];
-
+$Year = date("Y");
 if($rol == '1'){
         if(empty($_POST["txtID"]) ){
                 header('Location: ../reporte.php?mensaje=falta');
@@ -15,7 +15,23 @@ if($rol == '1'){
                 $id = $_POST["txtID"];
         }
 }else{
-        $id = $_GET['escuela'];
+        if(empty($_POST["txtPeriodo"]) ){
+                header('Location: ../reporte.php?mensaje=falta');
+                exit();
+        }else{
+                $id = $_GET['escuela'];
+        }
+        
+}
+
+if($_POST["txtPeriodo"] == '1'){
+        $inicio = $Year . "-01-01";
+        $fin = $Year . "-06-30";
+        $periodo = "Enero a Jrnio";
+}else if($_POST["txtPeriodo"] == '2'){
+        $inicio = $Year . "-07-01";
+        $fin = $Year . "-12-31";
+        $periodo = "Julio a Diciembre";
 }
 
 //Datos de la escuela
@@ -72,8 +88,8 @@ $pdf->SetX(25);
 
 //Ingresos Económicos
 
-$sentencia = $bd -> query("SELECT SUM(monto) as cantidad from ingresos where id_tipo_ingreso = '1' and id_escuela = '$id';");
-$sentencia->execute([$id]);
+$sentencia = $bd -> query("SELECT SUM(monto) as cantidad from ingresos where id_tipo_ingreso = '1' and id_escuela = '$id' and fecha BETWEEN '$inicio' AND '$fin';");
+$sentencia->execute([$id,$inicio,$fin]);
 $ingreso1 = $sentencia->fetchall(PDO::FETCH_ASSOC);
 
 $pdf->Cell(165,6,utf8_decode('A. INGRESOS ECONÓMICOS'),1,1,'L',0);
@@ -82,13 +98,13 @@ $pdf->Cell(120,6,utf8_decode('TOTAL DE INGRESOS PRIMER PERIODO'),1,0,'L',0);
 $pdf->Cell(5,6,utf8_decode('$'),1,0,'L',0);
 $pdf->Cell(40,6,utf8_decode('0.00'),1,1,'R',0);
 $pdf->SetX(25);
-$pdf->Cell(120,6,utf8_decode('a) Por aportaciones de A.P.F. hechas de Junio a Diciembre'),1,0,'L',0);
+$pdf->Cell(120,6,utf8_decode('a) Por aportaciones de A.P.F. hechas de ' . $periodo),1,0,'L',0);
 $pdf->Cell(5,6,utf8_decode('$'),1,0,'L',0);
 $pdf->Cell(40,6,utf8_decode($ingreso1[0]['cantidad']),1,1,'R',0);
 $pdf->SetX(25);
 
-$sentencia = $bd -> query("SELECT SUM(monto) as cantidad from ingresos where id_tipo_ingreso = '2' and id_escuela = '$id';");
-$sentencia->execute([$id]);
+$sentencia = $bd -> query("SELECT SUM(monto) as cantidad from ingresos where id_tipo_ingreso = '2' and id_escuela = '$id' and fecha BETWEEN '$inicio' AND '$fin';");
+$sentencia->execute([$id,$inicio,$fin]);
 $ingreso2 = $sentencia->fetchall(PDO::FETCH_ASSOC);
 
 $pdf->Cell(120,6,utf8_decode('b) Por actividades realizadas.'),1,0,'L',0);
@@ -96,8 +112,8 @@ $pdf->Cell(5,6,utf8_decode('$'),1,0,'L',0);
 $pdf->Cell(40,6,utf8_decode($ingreso2[0]['cantidad']),1,1,'R',0);
 $pdf->SetX(25);
 
-$sentencia = $bd -> query("SELECT SUM(monto) as cantidad from ingresos where id_tipo_ingreso = '3' and id_escuela = '$id';");
-$sentencia->execute([$id]);
+$sentencia = $bd -> query("SELECT SUM(monto) as cantidad from ingresos where id_tipo_ingreso = '3' and id_escuela = '$id' and fecha BETWEEN '$inicio' AND '$fin';");
+$sentencia->execute([$id,$inicio,$fin]);
 $ingreso3 = $sentencia->fetchall(PDO::FETCH_ASSOC);
 
 $pdf->Cell(165,6,utf8_decode('c) Otros ingresos (especifique):'),1,1,'L',0);
@@ -108,10 +124,10 @@ $pdf->Cell(5,6,utf8_decode('$'),1,0,'L',0);
 $pdf->Cell(40,6,utf8_decode($ingreso3[0]['cantidad']),1,1,'R',0);
 $pdf->SetX(25);
 
-$sentencia = $bd -> query("SELECT SUM(monto) as cantidad from ingresos where id_escuela = '$id';");
-$sentencia->execute([$id]);
+$sentencia = $bd -> query("SELECT SUM(monto) as cantidad from ingresos where id_escuela = '$id' and fecha BETWEEN '$inicio' AND '$fin';");
+$sentencia->execute([$id,$inicio,$fin]);
 $totalIngreso = $sentencia->fetchall(PDO::FETCH_ASSOC);
-
+$activo = floatval($totalIngreso[0]['cantidad']);
 $pdf->Cell(120,8,utf8_decode('TOTAL DE INGRESOS:'),1,0,'R',0);
 $pdf->Cell(5,8,utf8_decode('$'),1,0,'L',0);
 $pdf->Cell(40,8,utf8_decode($totalIngreso[0]['cantidad']),1,1,'R',0);
@@ -128,8 +144,8 @@ $pdf->Cell(5,6,utf8_decode('$'),1,0,'L',0);
 $pdf->Cell(40,6,utf8_decode('0.00'),1,1,'R',0);
 $pdf->SetX(25);
 
-$sentencia = $bd -> query("SELECT SUM(monto) as cantidad from egresos where id_tipo_egreso = '1' and id_escuela = '$id';");
-$sentencia->execute([$id]);
+$sentencia = $bd -> query("SELECT SUM(monto) as cantidad from egresos where id_tipo_egreso = '1' and id_escuela = '$id' and fecha BETWEEN '$inicio' AND '$fin';");
+$sentencia->execute([$id,$inicio,$fin]);
 $egreso1 = $sentencia->fetchall(PDO::FETCH_ASSOC);
 
 $pdf->Cell(120,6,utf8_decode('a) Construcción de aulas y anexos escolares'),1,0,'L',0);
@@ -137,8 +153,8 @@ $pdf->Cell(5,6,utf8_decode('$'),1,0,'L',0);
 $pdf->Cell(40,6,utf8_decode($egreso1[0]['cantidad']),1,1,'R',0);
 $pdf->SetX(25);
 
-$sentencia = $bd -> query("SELECT SUM(monto) as cantidad from egresos where id_tipo_egreso = '2' and id_escuela = '$id';");
-$sentencia->execute([$id]);
+$sentencia = $bd -> query("SELECT SUM(monto) as cantidad from egresos where id_tipo_egreso = '2' and id_escuela = '$id' and fecha BETWEEN '$inicio' AND '$fin';");
+$sentencia->execute([$id,$inicio,$fin]);
 $egreso2 = $sentencia->fetchall(PDO::FETCH_ASSOC);
 
 $pdf->Cell(120,6,utf8_decode('b) Reparación y mnetenimiento de edificios y anexos'),1,0,'L',0);
@@ -146,8 +162,8 @@ $pdf->Cell(5,6,utf8_decode('$'),1,0,'L',0);
 $pdf->Cell(40,6,utf8_decode($egreso2[0]['cantidad']),1,1,'R',0);
 $pdf->SetX(25);
 
-$sentencia = $bd -> query("SELECT SUM(monto) as cantidad from egresos where id_tipo_egreso = '3' and id_escuela = '$id';");
-$sentencia->execute([$id]);
+$sentencia = $bd -> query("SELECT SUM(monto) as cantidad from egresos where id_tipo_egreso = '3' and id_escuela = '$id' and fecha BETWEEN '$inicio' AND '$fin';");
+$sentencia->execute([$id,$inicio,$fin]);
 $egreso3 = $sentencia->fetchall(PDO::FETCH_ASSOC);
 
 $pdf->Cell(120,6,utf8_decode('c) Adquisición de mobiliario y equipo'),1,0,'L',0);
@@ -155,8 +171,8 @@ $pdf->Cell(5,6,utf8_decode('$'),1,0,'L',0);
 $pdf->Cell(40,6,utf8_decode($egreso3[0]['cantidad']),1,1,'R',0);
 $pdf->SetX(25);
 
-$sentencia = $bd -> query("SELECT SUM(monto) as cantidad from egresos where id_tipo_egreso = '4' and id_escuela = '$id';");
-$sentencia->execute([$id]);
+$sentencia = $bd -> query("SELECT SUM(monto) as cantidad from egresos where id_tipo_egreso = '4' and id_escuela = '$id' and fecha BETWEEN '$inicio' AND '$fin';");
+$sentencia->execute([$id,$inicio,$fin]);
 $egreso4 = $sentencia->fetchall(PDO::FETCH_ASSOC);
 
 $pdf->Cell(120,6,utf8_decode('d) Reparación y mantenimiento de mobiliario y equipo'),1,0,'L',0);
@@ -164,8 +180,8 @@ $pdf->Cell(5,6,utf8_decode('$'),1,0,'L',0);
 $pdf->Cell(40,6,utf8_decode($egreso4[0]['cantidad']),1,1,'R',0);
 $pdf->SetX(25);
 
-$sentencia = $bd -> query("SELECT SUM(monto) as cantidad from egresos where id_tipo_egreso = '5' and id_escuela = '$id';");
-$sentencia->execute([$id]);
+$sentencia = $bd -> query("SELECT SUM(monto) as cantidad from egresos where id_tipo_egreso = '5' and id_escuela = '$id' and fecha BETWEEN '$inicio' AND '$fin';");
+$sentencia->execute([$id,$inicio,$fin]);
 $egreso5 = $sentencia->fetchall(PDO::FETCH_ASSOC);
 
 $pdf->Cell(120,6,utf8_decode('e) Papelería, artículos escolares y material deportivo'),1,0,'L',0);
@@ -173,8 +189,8 @@ $pdf->Cell(5,6,utf8_decode('$'),1,0,'L',0);
 $pdf->Cell(40,6,utf8_decode($egreso5[0]['cantidad']),1,1,'R',0);
 $pdf->SetX(25);
 
-$sentencia = $bd -> query("SELECT SUM(monto) as cantidad from egresos where id_tipo_egreso = '6' and id_escuela = '$id';");
-$sentencia->execute([$id]);
+$sentencia = $bd -> query("SELECT SUM(monto) as cantidad from egresos where id_tipo_egreso = '6' and id_escuela = '$id' and fecha BETWEEN '$inicio' AND '$fin';");
+$sentencia->execute([$id,$inicio,$fin]);
 $egreso6 = $sentencia->fetchall(PDO::FETCH_ASSOC);
 
 $pdf->Cell(120,6,utf8_decode('f) Viajes por comisión'),1,0,'L',0);
@@ -182,8 +198,8 @@ $pdf->Cell(5,6,utf8_decode('$'),1,0,'L',0);
 $pdf->Cell(40,6,utf8_decode($egreso6[0]['cantidad']),1,1,'R',0);
 $pdf->SetX(25);
 
-$sentencia = $bd -> query("SELECT SUM(monto) as cantidad from egresos where id_tipo_egreso = '7' and id_escuela = '$id';");
-$sentencia->execute([$id]);
+$sentencia = $bd -> query("SELECT SUM(monto) as cantidad from egresos where id_tipo_egreso = '7' and id_escuela = '$id' and fecha BETWEEN '$inicio' AND '$fin';");
+$sentencia->execute([$id,$inicio,$fin]);
 $egreso7 = $sentencia->fetchall(PDO::FETCH_ASSOC);
 
 $pdf->Cell(120,6,utf8_decode('g) Otros'),1,0,'L',0);
@@ -191,13 +207,23 @@ $pdf->Cell(5,6,utf8_decode('$'),1,0,'L',0);
 $pdf->Cell(40,6,utf8_decode($egreso7[0]['cantidad']),1,1,'R',0);
 $pdf->SetX(25);
 
-$sentencia = $bd -> query("SELECT SUM(monto) as cantidad from egresos where id_escuela = '$id';");
-$sentencia->execute([$id]);
+$sentencia = $bd -> query("SELECT SUM(monto) as cantidad from egresos where id_escuela = '$id' and fecha BETWEEN '$inicio' AND '$fin';");
+$sentencia->execute([$id,$inicio,$fin]);
 $totalEgreso = $sentencia->fetchall(PDO::FETCH_ASSOC);
+$pasivo = floatval($totalEgreso[0]['cantidad']);
 
 $pdf->Cell(120,8,utf8_decode('TOTAL DE EGRESOS:'),1,0,'R',0);
 $pdf->Cell(5,8,utf8_decode('$'),1,0,'L',0);
 $pdf->Cell(40,8,utf8_decode($totalEgreso[0]['cantidad']),1,1,'R',0);
+$pdf->SetX(25);
+$pdf->Cell(165,4,utf8_decode(' '),0,1,'C',0);
+$pdf->SetX(25);
+
+$saldo = $activo - $pasivo;
+
+$pdf->Cell(120,8,utf8_decode('SALDO:'),1,0,'R',0);
+$pdf->Cell(5,8,utf8_decode('$'),1,0,'L',0);
+$pdf->Cell(40,8,utf8_decode($saldo),1,1,'R',0);
 $pdf->SetX(25);
 $pdf->Cell(165,4,utf8_decode(' '),0,1,'C',0);
 $pdf->SetX(25);

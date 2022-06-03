@@ -33,7 +33,15 @@
                             //print_r($usuario);
                             foreach($usuario as $dato){;
                                 ?>
-                                    <option value="<?php echo $dato->id_tipo_ingreso; ?>"><?php echo $dato->descripcion ?></option>
+                                    <option value="<?php echo $dato->id_tipo_ingreso; ?>"
+                                        <?php 
+                                            if($dato->id_tipo_ingreso == $ingreso->id_tipo_ingreso){
+                                                ?>
+                                                    selected = "true"
+                                                <?php
+                                            }
+                                        ?>
+                                    ><?php echo $dato->descripcion ?></option>
                                 <?php
                             }
 
@@ -65,7 +73,15 @@
                             //print_r($usuario);
                             foreach($usuario as $dato){;
                                 ?>
-                                    <option value="<?php echo $dato->id_escuela; ?>"><?php echo $dato->nombre ?></option>
+                                    <option value="<?php echo $dato->id_escuela; ?>"
+                                        <?php 
+                                            if($dato->id_escuela == $ingreso->id_escuela){
+                                                ?>
+                                                    selected = "true"
+                                                <?php
+                                            }
+                                        ?>
+                                    ><?php echo $dato->nombre ?></option>
                                 <?php
                             }
 

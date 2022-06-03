@@ -1,6 +1,10 @@
 <?php include 'template/header.php' ?>
 
 <?php
+$usuario = $_SESSION['username'];
+$rol = $_SESSION['rol'];
+$escuela = $_SESSION['escuela'];
+
     include_once "model/db.php";
     $sentencia = $bd -> query("SELECT usuario.id_usuario, usuario.nombre, usuario.correo, tipo_usuario.nombre as tipo_usuario, escuela.nombre as id_escuela FROM usuario
     INNER JOIN tipo_usuario ON usuario.tipo_usuario = tipo_usuario.id_tipo
@@ -66,10 +70,27 @@
                 <div class="card-header">
                     Ingresar datos
                 </div>
-                <form action="reporte/MostarReporte.php" class="p-4" method="POST" >
+                <form action="reporte/MostarReporte.php?escuela=<?php echo $escuela ?>" class="p-4" method="POST" >
+
+                    <?php 
+                        if($rol == '1'){
+                            ?>
+                                <div class="mb-3">
+                                <label  class="form-label">ID Escuela:</label>
+                                <input type="text" class="form-control" name="txtID" autofocus require>
+                                </div>
+                            <?php
+                        }else{
+                                
+                        }
+                    
+                    ?>
                     <div class="mb-3">
-                        <label  class="form-label">ID Escuela:</label>
-                        <input type="text" class="form-control" name="txtID" autofocus require>
+                        <label  class="form-label">Periodo:</label>
+                        <select name="txtPeriodo"  class="form-control">
+                            <option value="1">Primer periodo (Enero-Junio)</option>
+                            <option value="2">Segundo periodo (Julio-Diciembre)</option>
+                        </select>
                     </div>
                     <div class="d-grid">
                         <input type="hidden" name="oculto" value="1">
