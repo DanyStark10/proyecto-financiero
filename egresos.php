@@ -1,6 +1,9 @@
 <?php include 'template/header.php' ?>
 
 <?php
+        $usuario = $_SESSION['username'];
+        $rol = $_SESSION['rol'];
+        $escuela = $_SESSION['escuela'];
     include_once "model/db.php";
     $sentencia = $bd -> query("select * from egresos");
     $egreso = $sentencia->fetchAll(PDO::FETCH_OBJ);
@@ -136,7 +139,11 @@
                         <select name="txtEscuela"  class="form-control">
                         <?php
                             include_once "model/db.php";
-                            $sentencia = $bd -> query("SELECT * FROM escuela;");
+                            if($rol == '1'){
+                                $sentencia = $bd -> query("SELECT * FROM escuela;");
+                            }else{
+                                $sentencia = $bd -> query("SELECT * FROM escuela where id_escuela = $escuela;");
+                            }
                             $usuario = $sentencia->fetchAll(PDO::FETCH_OBJ);
                             //print_r($usuario);
                             foreach($usuario as $dato){;
