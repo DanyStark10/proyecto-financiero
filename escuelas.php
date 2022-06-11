@@ -61,6 +61,19 @@
                     </table>
                     
                 </div>
+
+                <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+
+                    <li class="page-item disabled">
+                    <a class="page-link" href="#">Siguiente</a>
+                    </li>
+                </ul>
+                </nav>
             </div>
         </div>
         <div class="col-md-4">
@@ -128,7 +141,20 @@
                     </div>
                     <div class="mb-3">
                         <label  class="form-label">tipo turno:</label>
-                        <input type="text" class="form-control" name="txtTurno" autofocus require>
+                        <select name="txtTurno"  class="form-control">
+                        <?php
+                            include_once "model/db.php";
+                            $sentencia = $bd -> query("SELECT * FROM tipo_turno;");
+                            $usuario = $sentencia->fetchAll(PDO::FETCH_OBJ);
+                            //print_r($usuario);
+                            foreach($usuario as $dato){;
+                                ?>
+                                    <option value="<?php echo $dato->id ?>"><?php echo $dato->nombre; ?></option>
+                                <?php
+                            }
+
+                        ?>
+                        </select>   
                     </div>
                     <div class="mb-3">
                         <label  class="form-label">Zona:</label>
